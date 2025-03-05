@@ -32,17 +32,16 @@ app.get("/system-info", (req, res) => {
 
   // 返回系统信息，每项信息都换行显示
   res.send(`
-      <h2>System Information</h2><table border="1">
-      <tr><td colspan="2"><a href='/'><h2>Back to Homepage</h2></a></td></tr>
-      <tr><th><h2>Property</h2></th><th>Value</th></tr>
-      <tr><td><h5>Platform</h5></td><td>${systemInfo.platform}</td></tr>
-      <tr><td><h5>Architecture</h5></td><td>${systemInfo.arch}</td></tr>
-      <tr><td>Hostname</td><td>${systemInfo.hostname}</td></tr>
-      <tr><td>Uptime</td><td>${systemInfo.uptime} seconds</td></tr>
-      <tr><td>CPU Information</td><td>${systemInfo.cpu[0].model}</td></tr>
-      <tr><td>Total Memory</td><td>${(systemInfo.memory / (1024 * 1024 * 1024)).toFixed(2)} GB</td></tr>
-      <tr><td>Free Memory</td><td>${(systemInfo.freeMemory / (1024 * 1024 * 1024)).toFixed(2)} GB</td></tr>
-      <tr><td>Network Interfaces</td><td><pre>${JSON.stringify(systemInfo.networkInterfaces, null, 2)}</pre></td></tr></table> 
+    <h2>System Information</h2>
+    <p><strong>Platform:</strong> ${systemInfo.platform}</p>
+    <p><strong>Architecture:</strong> ${systemInfo.arch}</p>
+    <p><strong>Hostname:</strong> ${systemInfo.hostname}</p>
+    <p><strong>Uptime:</strong> ${systemInfo.uptime} seconds</p>
+    <p><strong>CPU Information:</strong> ${systemInfo.cpu[0].model}</p> <!-- 简化输出CPU信息 -->
+    <p><strong>Total Memory:</strong> ${(systemInfo.memory / (1024 * 1024 * 1024)).toFixed(2)} GB</p>
+    <p><strong>Free Memory:</strong> ${(systemInfo.freeMemory / (1024 * 1024 * 1024)).toFixed(2)} GB</p>
+    <p><strong>Network Interfaces:</strong></p>
+    <pre>${JSON.stringify(systemInfo.networkInterfaces, null, 2)}</pre>
   `);
 });
 
