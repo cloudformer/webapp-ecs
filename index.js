@@ -6,7 +6,8 @@ const app = express();
 // 根路由
 app.get("/", (req, res) => {
   res.send(`
-    <h1>Hey guys, Welcome to my new Express Application !!</h1>
+    <h1>Hey guys, Welcome to my ECS automation pipeline Application !!</h1>
+    <h2>hostname: ${os.hostname()}</h2> <!-- 动态显示主机名 -->
     <p>For more information, visit <a href='/system-info'>/system-info</a></p>
   `);
 });
@@ -29,7 +30,19 @@ app.get("/system-info", (req, res) => {
     uptime: os.uptime()       // 系统启动时间
   };
 
-  res.json(systemInfo); // 以 JSON 格式返回系统信息
+  // 返回系统信息，每项信息都换行显示
+  res.send(`
+    <h2>System Information</h2>
+    <p><strong>Platform:</strong> ${systemInfo.platform}</p>
+    <p><strong>Architecture:</strong> ${systemInfo.arch}</p>
+    <p><strong>Hostname:</strong> ${systemInfo.hostname}</p>
+    <p><strong>Uptime:</strong> ${systemInfo.uptime} seconds</p>
+    <p><strong>CPU Information:</strong> ${systemInfo.cpu[0].model}</p> <!-- 简化输出CPU信息 -->
+    <p><strong>Total Memory:</strong> ${(systemInfo.memory / (1024 * 1024 * 1024)).toFixed(2)} GB</p>
+    <p><strong>Free Memory:</strong> ${(systemInfo.freeMemory / (1024 * 1024 * 1024)).toFixed(2)} GB</p>
+    <p><strong>Network Interfaces:</strong></p>
+    <pre>${JSON.stringify(systemInfo.networkInterfaces, null, 2)}</pre>
+  `);
 });
 
 // 启动监听3000端口
