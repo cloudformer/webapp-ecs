@@ -1,5 +1,5 @@
 #!/bin/sh
-# 定期检查 S3 上的 index.js 文件是否有更新
+# 定期检查 S3 上的 index.js 文件是否有更新111
 echo "Fetching index.js from S3..."
 aws s3 cp s3://codeforautomation/ecsnodejs/index.js /express-app/index.js
 
